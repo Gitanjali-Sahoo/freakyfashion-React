@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 import ProductDetail from "./component/ProductDetail";
+import SearchResults from "./component/SearchResults";
 
 const Paragraph = styled.p`
   text-align: center;
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
       </main>
       <footer>

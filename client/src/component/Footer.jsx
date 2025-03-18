@@ -19,10 +19,12 @@ const FooterWrapper = styled.div`
   align-items: center;
   gap: 2em;
   width: 100%;
-
   padding: 2em 0;
   line-height: 1.9;
   font-weight: bold;
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
 `;
 const Footer = () => {
   return (

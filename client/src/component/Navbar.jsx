@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoSearch, IoCart, IoClose } from "react-icons/io5";
 import { RiHeartLine } from "react-icons/ri";
+import SearchBar from "./SearchBar";
 
 const NavbarWrapper = styled.div`
   display: flex;
@@ -85,11 +86,18 @@ const IconWrapper = styled.ul`
   gap: 10px;
   list-style: none;
   align-items: center;
-  @media (max-width: 1024px) {
-    form {
+  @media (min-width: 1024px) {
+    /* form {
       position: fixed;
       top: calc(10% + 4px);
       right: 5px;
+    } */
+  }
+  @media (max-width: 640px) {
+    form {
+      position: fixed;
+      right: 5px;
+      top: calc(1% + 36px);
     }
   }
 `;
@@ -123,13 +131,14 @@ const Navbar = () => {
       {/* Icons */}
       <IconWrapper>
         {show && (
-          <form action="">
-            <input
-              type="search"
-              name="search"
-              placeholder="Search product..."
-            />
-          </form>
+          // <form action="">
+          //   <input
+          //     type="search"
+          //     name="search"
+          //     placeholder="Search product..."
+          //   />
+          // </form>
+          <SearchBar />
         )}
         <IoSearch onClick={() => setShow(!show)} />
 
