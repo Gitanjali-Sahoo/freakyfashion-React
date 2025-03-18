@@ -63,6 +63,53 @@ app.get("/api/products/:id", (req, res) => {
   res.json(rows);
 });
 
+// Filter product using query
+app.get("/api/search", (req, res) => {
+  const searchedQuery = req.query.search?.trim() || "";
+
+  if (!searchedQuery) {
+    return res.json({
+      productsVisible: [],
+      message: "Please enter a search term.",
+    });
+  }
+
+  const select = db.prepare(`
+    SELECT id, name, price, image, sku, description, gender, slug, createdAt
+    FROM products
+    WHERE name LIKE ? OR LOWER(gender) = LOWER(?)
+  `);
+
+  const rows = select.all(`%${searchedQuery}%`, searchedQuery);
+
+  if (!rows.length) {
+    return res.json({
+      productsVisible: [],
+      message: "No products found for your search.",
+    });
+  }
+
+  const currentDate = new Date();
+
+  // Loop through each product and assign isNew and hide properties
+  rows.forEach((product) => {
+    const productCreatedAt = new Date(product.createdAt);
+    const daysDifference =
+      (currentDate - productCreatedAt) / (1000 * 60 * 60 * 24);
+
+    product.isNew = daysDifference < 7;
+    product.hide = productCreatedAt > currentDate;
+  });
+
+  // Filter products to exclude hidden ones
+  const productsVisible = rows.filter((product) => !product.hide);
+
+  res.json({
+    productsVisible,
+    message: `products found ${productsVisible.length}`,
+  });
+});
+
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`);
 });
