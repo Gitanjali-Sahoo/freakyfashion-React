@@ -13,6 +13,9 @@ const SliderContainer = styled.div`
   width: 80%;
   margin: auto;
   overflow: hidden;
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const SlideWrapper = styled.div`

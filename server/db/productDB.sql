@@ -81,3 +81,21 @@ INSERT INTO products (
        'Female',
        'puma-blue-shoes'
 );
+
+INSERT INTO products (
+    name,
+    price,
+    image,
+    sku,
+    description,
+    gender,
+    slug
+) VALUES (
+       'Nike Black Shoes',
+       '399',
+       'https://images.pexels.com/photos/20247841/pexels-photo-20247841/free-photo-of-sneakers-on-display.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load',
+       'ABC823',
+       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam consectetur ipsum suscipit, vestibulum arcu sed, condimentum eros. Sed a enim at tortor congue dapibus at sed eros. Integer accumsan malesuada velit, non tempus eros facilisis sit amet.',
+       'male',
+       'nike-black-shoes'
+);

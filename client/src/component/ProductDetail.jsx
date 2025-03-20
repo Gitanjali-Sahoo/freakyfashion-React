@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { FaRegHeart } from "react-icons/fa";
 import ImageSlider from "./ImageSlider";
-import ProductProvider from "../contexts/ProductProvider";
+import { useContext } from "react";
+import { ProductContext } from "../contexts/ProductProvider";
 
 const DetailWrapper = styled.div`
   display: flex;
@@ -60,23 +61,30 @@ const Content = styled.div`
 const ProductDetail = () => {
   const [product, setProduct] = useState("");
   const { id } = useParams();
+  const { data, loading, error } = useContext(ProductContext);
+  const productId = Number(id);
 
   useEffect(() => {
-    fetch(`/api/products/${id}`)
-      .then((resp) => {
-        if (!resp.ok) {
-          throw new Error("Failed to fetch the product with id");
-        }
-        return resp.json();
-      })
-      .then((data) => {
-        setProduct(data);
-      })
-      .catch((err) => {
-        throw new Error(`Error from the server ${err}`);
-      });
-  }, [id]);
+    if (data.length > 0) {
+      const foundProduct = data.find((product) => product.id === productId);
+      setProduct(foundProduct || null);
+    }
+  }, [id, data]);
 
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
+
+  if (!product) {
+    return <p>Product not found.</p>;
+  }
+
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
   return (
     <>
       <DetailWrapper>
@@ -97,9 +105,8 @@ const ProductDetail = () => {
           <button>Add to Cart</button>
         </ContentWrapper>
       </DetailWrapper>
-      <ProductProvider>
-        <ImageSlider />
-      </ProductProvider>
+
+      <ImageSlider />
     </>
   );
 };

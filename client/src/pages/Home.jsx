@@ -11,12 +11,8 @@ const Home = () => {
     <>
       <Hero />
       <SpotCard />
-
       <SearchResults />
-
-      <ProductProvider>
-        <Card />
-      </ProductProvider>
+      <Card />
     </>
   );
 };

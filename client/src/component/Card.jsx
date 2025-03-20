@@ -11,6 +11,7 @@ const CardWrapper = styled.div`
   margin: 0.6em;
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
+    justify-self: center;
   }
   @media screen and (min-width: 640px) and (max-width: 1024px) {
     grid-template-columns: 1fr 1fr;

@@ -6,6 +6,10 @@ import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 import ProductDetail from "./component/ProductDetail";
 import SearchResults from "./component/SearchResults";
+import ProductProvider from "./contexts/ProductProvider";
+import MainLayout from "./layout/MainLayout";
+import AdminLayout from "./layout/AdminLayout";
+import ProductsList from "./admin/ProductsList";
 
 const Paragraph = styled.p`
   text-align: center;
@@ -17,22 +21,19 @@ const Paragraph = styled.p`
 function App() {
   return (
     <>
-      <header>
-        {/* <Paragraph>
-          Free Express Shipping on all orders with all duties included
-        </Paragraph> */}
-        <Navbar />
-      </header>
-      <main>
+      <ProductProvider>
         <Routes>
-          <Route index element={<Home />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/search" element={<SearchResults />} />
+          <Route element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/search" element={<SearchResults />} />
+          </Route>
+
+          <Route element={<AdminLayout />} path="/admin">
+            <Route element={<ProductsList />} path="products" />
+          </Route>
         </Routes>
-      </main>
-      <footer>
-        <Footer />
-      </footer>
+      </ProductProvider>
     </>
   );
 }
