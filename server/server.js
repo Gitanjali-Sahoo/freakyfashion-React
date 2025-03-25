@@ -7,6 +7,17 @@ const db = new Database("./db/product-manager.db", {
 const port = 8000;
 
 const app = express();
+app.use(express.json());
+
+// Generate slug
+function generateSlug(input) {
+  return input
+    .toLowerCase() // Convert to lowercase
+    .trim() // Remove leading and trailing whitespace
+    .replace(/[^a-z0-9\s-]/g, "") // Remove special characters
+    .replace(/\s+/g, "-") // Replace spaces with dashes
+    .replace(/-+/g, "-"); // Remove consecutive dashes
+}
 
 //Get all products from database
 app.get("/api/products", (req, res) => {
@@ -109,6 +120,54 @@ app.get("/api/products", (req, res) => {
 //     message: ` ${productsVisible.length} products found`,
 //   });
 // });
+
+//delete a product by id from the DB
+app.delete("/api/products/:id", (req, res) => {
+  const id = req.params.id;
+  const select = db.prepare(`
+  DELETE FROM products WHERE id = ?
+  `);
+  const result = select.run(id);
+  if (result.changes > 0) {
+    console.log("deleted");
+    res.json({ message: "Product deleted successfully!" });
+  } else {
+    res.status(404).json({ message: "Product not found!" });
+  }
+});
+
+//Add a product into the DB
+app.post("/api/products/new", (req, res) => {
+  const newProduct = { ...req.body, slug: generateSlug(req.body.name) };
+
+  const insert = db.prepare(`
+    INSERT INTO products(
+      name,
+      price,
+      image,
+      sku,
+      description,
+      gender,
+      slug,
+      createdAt
+    ) VALUES (
+      @name,
+      @price,
+      @image,
+      @sku,
+      @description,
+      @gender,
+      @slug,
+      @date)`);
+
+  try {
+    insert.run(newProduct);
+    res.status(201).json({ message: "Product added successfully!" });
+  } catch (error) {
+    console.error("Error inserting product:", error);
+    res.status(500).json({ error: "Failed to add product." });
+  }
+});
 
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`);

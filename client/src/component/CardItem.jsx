@@ -10,7 +10,7 @@ const CardItemWrapper = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 100%;
   border: 1px solid #ddd;
 `;
 const ImageWrapper = styled.div`

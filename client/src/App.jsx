@@ -10,6 +10,7 @@ import ProductProvider from "./contexts/ProductProvider";
 import MainLayout from "./layout/MainLayout";
 import AdminLayout from "./layout/AdminLayout";
 import ProductsList from "./admin/ProductsList";
+import NewProduct from "./admin/NewProduct";
 
 const Paragraph = styled.p`
   text-align: center;
@@ -31,6 +32,7 @@ function App() {
 
           <Route element={<AdminLayout />} path="/admin">
             <Route element={<ProductsList />} path="products" />
+            <Route element={<NewProduct />} path="products/new" />
           </Route>
         </Routes>
       </ProductProvider>
