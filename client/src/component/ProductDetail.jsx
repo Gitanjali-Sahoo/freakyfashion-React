@@ -71,6 +71,27 @@ const ProductDetail = () => {
     }
   }, [id, data]);
 
+  const handleSubmit = () => {
+    const cartProduct = {
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      sku: product.sku,
+      description: product.description,
+      gender: product.gender,
+      slug: product.slug,
+      date: product.createdAt,
+    };
+
+    fetch("/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cartProduct),
+    });
+  };
+
   if (loading) {
     return <p>Loading products...</p>;
   }
@@ -102,7 +123,7 @@ const ProductDetail = () => {
 
             <FaRegHeart className="icon" />
           </Content>
-          <button>Add to Cart</button>
+          <button onClick={handleSubmit}>Add to Cart</button>
         </ContentWrapper>
       </DetailWrapper>
 

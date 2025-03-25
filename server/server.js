@@ -4,6 +4,9 @@ import Database from "better-sqlite3";
 const db = new Database("./db/product-manager.db", {
   verbose: console.log,
 });
+const cartDB = new Database("./db/cart-manager.db", {
+  verbose: console.log,
+});
 const port = 8000;
 
 const app = express();
@@ -169,6 +172,63 @@ app.post("/api/products/new", (req, res) => {
   }
 });
 
+// *******************************************************************************************************
+
+//Cart functionality
+app.post("/api/cart", (req, res) => {
+  const product = req.body;
+  console.log(product);
+  const insert = cartDB.prepare(`
+    INSERT INTO cart(
+      name,
+      price,
+      image,
+      sku,
+      description,
+      gender,
+      slug,
+      createdAt
+    ) VALUES (
+      @name,
+      @price,
+      @image,
+      @sku,
+      @description,
+      @gender,
+      @slug,
+      @date)`);
+
+  try {
+    insert.run(product);
+    res.status(201).json({ message: "Product added successfully in Cart!" });
+  } catch (error) {
+    console.error("Error inserting product:", error);
+    res.status(500).json({ error: "Failed to add product in to the Cart." });
+  }
+});
+
+// get product from Cart DB
+
+app.get("/api/cart", (req, res) => {
+  const cartProduct = cartDB
+    .prepare(
+      `
+  SELECT
+      id,
+      name,
+      price,
+      image,
+      sku,
+      description,
+      gender,
+      slug,
+      createdAt FROM cart
+  `
+    )
+    .all();
+
+  res.json(cartProduct);
+});
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`);
 });

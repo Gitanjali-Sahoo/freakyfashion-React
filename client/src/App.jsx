@@ -11,6 +11,7 @@ import MainLayout from "./layout/MainLayout";
 import AdminLayout from "./layout/AdminLayout";
 import ProductsList from "./admin/ProductsList";
 import NewProduct from "./admin/NewProduct";
+import Cart from "./cart/cart";
 
 const Paragraph = styled.p`
   text-align: center;
@@ -28,6 +29,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/search" element={<SearchResults />} />
+            <Route path="/cart" element={<Cart />} />
           </Route>
 
           <Route element={<AdminLayout />} path="/admin">
