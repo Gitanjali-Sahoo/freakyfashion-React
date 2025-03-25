@@ -222,13 +222,35 @@ app.get("/api/cart", (req, res) => {
       description,
       gender,
       slug,
-      createdAt FROM cart
+      createdAt,
+      quantity FROM cart
   `
     )
     .all();
 
   res.json(cartProduct);
 });
+app.put("/api/cart/update", (req, res) => {
+  const { id, quantity } = req.body;
+
+  if (!id || quantity < 1) {
+    return res.status(400).json({ error: "Invalid product ID or quantity" });
+  }
+
+  if (quantity < 1) {
+    // Remove the product if quantity is 0
+    const deleteItem = cartDB.prepare("DELETE FROM cart WHERE id = ?");
+    deleteItem.run(id);
+    return res.json({ message: "Product removed from cart!" });
+  }
+
+  // Update quantity in database
+  const update = cartDB.prepare(`UPDATE cart SET quantity = ? WHERE id = ?`);
+  update.run(quantity, id);
+
+  res.json({ message: "Quantity updated successfully!" });
+});
+
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`);
 });

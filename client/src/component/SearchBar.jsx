@@ -6,7 +6,7 @@ import { ProductContext } from "../contexts/ProductProvider";
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  // const [filteredProducts, setFilteredProducts] = useState([]);
   const { data } = useContext(ProductContext);
 
   // if (loading) {
@@ -38,8 +38,8 @@ const SearchBar = () => {
         (term) => productName.includes(term) || productGender === term
       );
     });
-    setFilteredProducts(filteredData);
-
+    // setFilteredProducts(filteredData);
+    setQuery("");
     navigate(`/search?search=${query}`, {
       state: { filteredProducts: filteredData },
     });
