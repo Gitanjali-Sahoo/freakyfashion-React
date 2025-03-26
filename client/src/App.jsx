@@ -13,6 +13,7 @@ import ProductsList from "./admin/ProductsList";
 import NewProduct from "./admin/NewProduct";
 import Cart from "./cart/cart";
 import Checkout from "./cart/Checkout";
+import ConfirmationPage from "./cart/ConfirmationPage";
 
 const Paragraph = styled.p`
   text-align: center;
@@ -32,6 +33,7 @@ function App() {
             <Route path="/search" element={<SearchResults />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/confirmation" element={<ConfirmationPage />} />
           </Route>
 
           <Route element={<AdminLayout />} path="/admin">

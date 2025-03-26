@@ -52,6 +52,15 @@ const NavButton = styled.button`
   ${({ $left }) => $left && `left: 0;`}
   ${({ $right }) => $right && `right: 0;`}
 `;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  &:hover {
+    color: #e14e0f;
+  }
+`;
 
 const ImageSlider = () => {
   const { data, loading, error } = useContext(ProductContext);
@@ -91,12 +100,12 @@ const ImageSlider = () => {
         {data.map((product) => (
           <Slide key={product.id}>
             <Image src={product.image} alt={product.name} />
-            <Link to={`/products/${product.id}`}>
+            <StyledLink to={`/products/${product.id}`}>
               <p>
                 <strong>{product.name}</strong>
               </p>
               <p>{product.price} Sek</p>
-            </Link>
+            </StyledLink>
           </Slide>
         ))}
       </SlideWrapper>

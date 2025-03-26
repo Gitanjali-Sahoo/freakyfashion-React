@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px 10px;
+`;
 const Table = styled.table`
   margin: 40px auto;
   width: 700px;
@@ -29,13 +35,30 @@ const Table = styled.table`
   tbody tr:nth-child(2) {
     background-color: #e9e9e9;
   }
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 `;
 const Icon = styled.div`
   padding: 4px;
   cursor: pointer;
 `;
+const Button = styled.button`
+  padding: 8px 20px;
+  background-color: #0f3c30;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: auto 50%;
+  &:hover {
+    background-color: #49796d;
+  }
+`;
+
 const Cart = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/api/cart")
@@ -65,9 +88,17 @@ const Cart = () => {
       })
       .catch((error) => console.error("Error updating quantity:", error));
   };
+  const handleClick = () => {
+    navigate("/checkout", { state: { products, total } });
+  };
+
+  const total = products.reduce(
+    (acc, product) => acc + product.quantity * product.price,
+    0
+  );
 
   return (
-    <>
+    <Wrapper>
       <Table>
         <thead>
           <tr>
@@ -85,16 +116,7 @@ const Cart = () => {
               <td>{product.name}</td>
               <td>{product.sku}</td>
               <td>{product.price} Sek</td>
-              {/* <td>
-                <input
-                  type="number"
-                  name="quantity"
-                  value={quantities[product.id] || 1} // Get from quantities state
-                  onChange={(e) =>
-                    handleQuantityChange(product.id, e.target.value)
-                  }
-                />
-              </td> */}
+
               <td>
                 <button
                   onClick={() =>
@@ -120,7 +142,7 @@ const Cart = () => {
                   +
                 </button>
               </td>
-              <td>{product.quantity * Number(product.price)}</td>
+              <td>{product.quantity * Number(product.price)} Sek</td>
               <td>
                 <Icon onClick={() => handleDelete(product.id)}>
                   <FaRegTrashAlt />
@@ -130,10 +152,10 @@ const Cart = () => {
           ))}
         </tbody>
       </Table>
-      <button>
-        <Link to="/checkout">Checkout</Link>
-      </button>
-    </>
+      {/* Display Total Price */}
+      <h3>Total: {total} SEK</h3>
+      <Button onClick={handleClick}>Checkout</Button>
+    </Wrapper>
   );
 };
 

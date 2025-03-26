@@ -56,8 +56,8 @@ const ImageContainer = styled.div`
 const Content = styled.div`
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
 `;
+
 const ProductDetail = () => {
   const [product, setProduct] = useState("");
   const { id } = useParams();
