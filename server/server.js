@@ -251,6 +251,21 @@ app.put("/api/cart/update", (req, res) => {
   res.json({ message: "Quantity updated successfully!" });
 });
 
+//Delete a product from the cart table
+
+app.delete("/api/cart/:id", (req, res) => {
+  const id = req.params.id;
+  const select = cartDB.prepare(`
+    DELETE FROM cart WHERE id = ?
+    `);
+  const result = select.run(id);
+  if (result.changes > 0) {
+    console.log("deleted");
+    res.json({ message: "Product deleted successfully!" });
+  } else {
+    res.status(404).json({ message: "Product not found!" });
+  }
+});
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`);
 });

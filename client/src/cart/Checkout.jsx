@@ -1,6 +1,6 @@
 import React from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -111,6 +111,7 @@ const Button = styled.button`
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
+  font-weight: bold;
 
   &:hover {
     background-color: #49796d;
@@ -121,16 +122,17 @@ const Button = styled.button`
     font-size: 14px;
   }
 `;
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-`;
+
 const Checkout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const products = location.state.products;
   const total = location.state.total;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/confirmation");
+  };
   return (
     <Wrapper>
       <Table>
@@ -152,30 +154,7 @@ const Checkout = () => {
               <td>{product.price} Sek</td>
 
               <td>
-                {/* <button
-                  onClick={() =>
-                    handleQuantityChange(product.id, product.quantity - 1)
-                  }
-                >
-                  -
-                </button> */}
-                {/* <input
-                  type="number"
-                  name="quantity"
-                  value={product.quantity}
-                  min="1"
-                  onChange={(e) =>
-                    handleQuantityChange(product.id, e.target.value)
-                  }
-                /> */}
                 <p>{product.quantity}</p>
-                {/* <button
-                  onClick={() =>
-                    handleQuantityChange(product.id, product.quantity + 1)
-                  }
-                >
-                  +
-                </button> */}
               </td>
               <td>{product.quantity * Number(product.price)} Sek</td>
               <td>
@@ -190,7 +169,7 @@ const Checkout = () => {
       <h3>Total: {total} SEK</h3>
       <Container>
         <Title>Customer Data</Title>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Row>
             <FormGroup>
               <Label>First Name</Label>
@@ -229,9 +208,7 @@ const Checkout = () => {
             <input type="checkbox" name="" id="" />I want to receive newsletters
           </FormGroup>
 
-          <Button type="submit">
-            <StyledLink to="/confirmation">Köp</StyledLink>
-          </Button>
+          <Button>Köp</Button>
         </form>
       </Container>
     </Wrapper>

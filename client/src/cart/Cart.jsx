@@ -51,6 +51,8 @@ const Button = styled.button`
   border-radius: 8px;
   font-weight: bold;
   margin: auto 50%;
+  font-size: 16px;
+  width: 50%;
   &:hover {
     background-color: #49796d;
   }
@@ -88,14 +90,31 @@ const Cart = () => {
       })
       .catch((error) => console.error("Error updating quantity:", error));
   };
-  const handleClick = () => {
-    navigate("/checkout", { state: { products, total } });
-  };
-
   const total = products.reduce(
     (acc, product) => acc + product.quantity * product.price,
     0
   );
+  const handleDelete = (id) => {
+    fetch(`/api/products/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Product deleted successfully!");
+          setProducts(products.filter((product) => product.id !== id));
+        } else {
+          alert("Failed to delete product.");
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+  const handleClick = () => {
+    if (products.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
+    navigate("/checkout", { state: { products, total } });
+  };
 
   return (
     <Wrapper>
@@ -128,7 +147,7 @@ const Cart = () => {
                 <input
                   type="number"
                   name="quantity"
-                  value={product.quantity}
+                  value={product.quantity || 1}
                   min="1"
                   onChange={(e) =>
                     handleQuantityChange(product.id, e.target.value)
@@ -153,7 +172,7 @@ const Cart = () => {
         </tbody>
       </Table>
       {/* Display Total Price */}
-      <h3>Total: {total} SEK</h3>
+      <h3 style={{ marginBottom: "1em" }}>Total: {total} SEK</h3>
       <Button onClick={handleClick}>Checkout</Button>
     </Wrapper>
   );

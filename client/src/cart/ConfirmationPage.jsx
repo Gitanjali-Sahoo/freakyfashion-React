@@ -29,7 +29,6 @@
 
 import React from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
   width: 90%;
@@ -44,27 +43,6 @@ const Container = styled.div`
 
 const Title = styled.h2`
   color: #0f3c30;
-`;
-
-const OrderDetails = styled.div`
-  margin: 20px 0;
-  padding: 15px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-`;
-
-const OrderItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #ddd;
-`;
-
-const Total = styled.p`
-  font-weight: bold;
-  font-size: 18px;
-  color: #333;
 `;
 
 const Button = styled.button`
@@ -84,26 +62,10 @@ const Button = styled.button`
 `;
 
 const Confirmation = () => {
-  // const location = useLocation();
-  // const { customer, products, total } = location.state || {}; // Get order details from Checkout page
-
   return (
     <Container>
       <Title>Thank you for your purchase!</Title>
       <p>An order confirmation has been sent to your email</p>
-
-      <OrderDetails>
-        <h3>Order Details</h3>
-        {/* {products.map((product, index) => (
-          <OrderItem key={index}>
-            <span>
-              {product.name} (x{product.quantity})
-            </span>
-            <span>{product.quantity * product.price} SEK</span>
-          </OrderItem>
-        ))}
-        <Total>Total: {total} SEK</Total> */}
-      </OrderDetails>
 
       <Button onClick={() => (window.location.href = "/")}>
         Back to Homepage
