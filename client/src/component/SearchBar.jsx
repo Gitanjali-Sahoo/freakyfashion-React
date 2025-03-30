@@ -1,23 +1,30 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useContext } from "react";
 import { ProductContext } from "../contexts/ProductProvider";
+import styled from "styled-components";
 
+const Input = styled.input`
+  background-color: #c5e9f4;
+  border: none;
+  padding: 4px;
+  outline: none;
+`;
+const Button = styled.button`
+  color: white;
+  font-weight: bold;
+  background-color: #0f3c30;
+  padding: 4px;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: #49796d;
+  }
+`;
 const SearchBar = () => {
   const [query, setQuery] = useState("");
-  // const [filteredProducts, setFilteredProducts] = useState([]);
   const { data } = useContext(ProductContext);
 
-  // if (loading) {
-  //   return <p>Loading products...</p>;
-  // }
-  // if (error) {
-  //   return <p>Error: {error}</p>;
-  // }
-  // if (!data || data.length === 0) {
-  //   return <p>No products available.</p>;
-  // }
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -38,7 +45,6 @@ const SearchBar = () => {
         (term) => productName.includes(term) || productGender === term
       );
     });
-    // setFilteredProducts(filteredData);
     setQuery("");
     navigate(`/search?search=${query}`, {
       state: { filteredProducts: filteredData },
@@ -47,13 +53,13 @@ const SearchBar = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
+      <Input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search products..."
       />
-      <button type="submit">Search</button>
+      <Button type="submit">Search</Button>
     </form>
   );
 };

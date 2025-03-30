@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import CardItem from "./CardItem";
 
@@ -24,7 +23,7 @@ const SearchResults = () => {
   const filteredProducts = location.state?.filteredProducts || [];
 
   return (
-    <div style={{ height: "70vh" }}>
+    <div>
       {filteredProducts.length === 0 ? null : (
         <CardWrapper>
           {filteredProducts.map((product) => (

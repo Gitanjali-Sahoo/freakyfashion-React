@@ -60,8 +60,8 @@ const Content = styled.div`
 
 const ProductDetail = () => {
   const [product, setProduct] = useState("");
-  const { id } = useParams();
   const { data, loading, error } = useContext(ProductContext);
+  const { id } = useParams();
   const productId = Number(id);
 
   useEffect(() => {
@@ -100,9 +100,6 @@ const ProductDetail = () => {
     return <p>Product not found.</p>;
   }
 
-  if (loading) {
-    return <p>Loading products...</p>;
-  }
   if (error) {
     return <p>Error: {error}</p>;
   }

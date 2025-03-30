@@ -11,10 +11,6 @@ const StyledLink = styled(Link)`
   color: white;
   font-weight: bold;
   text-align: center;
-  /*
-  &:hover {
-    color: #ff6347;
-  } */
 `;
 const Wrapper = styled.div`
   display: flex;

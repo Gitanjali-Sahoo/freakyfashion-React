@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -9,6 +9,9 @@ const Wrapper = styled.div`
   align-items: center;
   margin: 0px 10px;
   height: 70vh;
+  h1 {
+    margin-top: 2em;
+  }
 `;
 const Table = styled.table`
   margin: 40px auto;
@@ -96,7 +99,7 @@ const Cart = () => {
     0
   );
   const handleDelete = (id) => {
-    fetch(`/api/products/${id}`, {
+    fetch(`/api/cart/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -110,71 +113,78 @@ const Cart = () => {
       .catch((error) => console.error("Error:", error));
   };
   const handleClick = () => {
-    if (products.length === 0) {
-      alert("Your cart is empty!");
-      return;
-    }
     navigate("/checkout", { state: { products, total } });
   };
 
   return (
     <Wrapper>
-      <Table>
-        <thead>
-          <tr>
-            <td>Name</td>
-            <td>Quantity</td>
-            <td>Price</td>
-            <td>Quantity</td>
-            <td>Total</td>
-            <td></td>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>{product.sku}</td>
-              <td>{product.price} Sek</td>
+      {products.length > 0 ? (
+        <>
+          <Table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Quantity</td>
+                <td>Price</td>
+                <td>Quantity</td>
+                <td>Total</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td>{product.name}</td>
+                  <td>{product.sku}</td>
+                  <td>{product.price} Sek</td>
 
-              <td>
-                <button
-                  onClick={() =>
-                    handleQuantityChange(product.id, product.quantity - 1)
-                  }
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  name="quantity"
-                  value={product.quantity || 1}
-                  min="1"
-                  onChange={(e) =>
-                    handleQuantityChange(product.id, e.target.value)
-                  }
-                />
-                <button
-                  onClick={() =>
-                    handleQuantityChange(product.id, product.quantity + 1)
-                  }
-                >
-                  +
-                </button>
-              </td>
-              <td>{product.quantity * Number(product.price)} Sek</td>
-              <td>
-                <Icon onClick={() => handleDelete(product.id)}>
-                  <FaRegTrashAlt />
-                </Icon>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      {/* Display Total Price */}
-      <h3 style={{ marginBottom: "1em" }}>Total: {total} SEK</h3>
-      <Button onClick={handleClick}>Checkout</Button>
+                  <td>
+                    <button
+                      onClick={() =>
+                        handleQuantityChange(product.id, product.quantity - 1)
+                      }
+                    >
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      name="quantity"
+                      value={product.quantity || 1}
+                      min="1"
+                      onChange={(e) =>
+                        handleQuantityChange(product.id, e.target.value)
+                      }
+                    />
+                    <button
+                      onClick={() =>
+                        handleQuantityChange(product.id, product.quantity + 1)
+                      }
+                    >
+                      +
+                    </button>
+                  </td>
+                  <td>{product.quantity * Number(product.price)} Sek</td>
+                  <td>
+                    <Icon onClick={() => handleDelete(product.id)}>
+                      <FaRegTrashAlt />
+                    </Icon>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          {/* Display Total Price */}
+          <h3 style={{ marginBottom: "1em" }}>Total: {total} SEK</h3>
+          <Button onClick={handleClick}>Checkout</Button>
+        </>
+      ) : (
+        <>
+          <h1>No products are in Cart</h1>
+          <Button onClick={() => (window.location.href = "/")}>
+            Back to Shopping
+          </Button>
+        </>
+      )}
     </Wrapper>
   );
 };

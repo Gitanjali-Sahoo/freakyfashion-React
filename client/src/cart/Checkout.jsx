@@ -1,6 +1,6 @@
 import React from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -158,7 +158,7 @@ const Checkout = () => {
               </td>
               <td>{product.quantity * Number(product.price)} Sek</td>
               <td>
-                <Icon onClick={() => handleDelete(product.id)}>
+                <Icon>
                   <FaRegTrashAlt />
                 </Icon>
               </td>
@@ -205,7 +205,8 @@ const Checkout = () => {
           </AddressBox>
 
           <FormGroup>
-            <input type="checkbox" name="" id="" />I want to receive newsletters
+            <input type="checkbox" name="" id="" /> I want to receive
+            newsletters
           </FormGroup>
 
           <Button>Köp</Button>

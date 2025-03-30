@@ -86,13 +86,7 @@ const IconWrapper = styled.ul`
   gap: 10px;
   list-style: none;
   align-items: center;
-  @media (min-width: 1024px) {
-    /* form {
-      position: fixed;
-      top: calc(10% + 4px);
-      right: 5px;
-    } */
-  }
+
   @media (max-width: 640px) {
     form {
       position: fixed;
@@ -115,31 +109,22 @@ const Navbar = () => {
       {/* Navigation Links */}
       <LinkWrapper open={menuOpen}>
         <li>
-          <StyledLink to="/men">Men</StyledLink>
+          <StyledLink to="/">Men</StyledLink>
         </li>
         <li>
-          <StyledLink to="/women">Women</StyledLink>
+          <StyledLink to="/">Women</StyledLink>
         </li>
         <li>
-          <StyledLink to="/sale">Sale</StyledLink>
+          <StyledLink to="/">Sale</StyledLink>
         </li>
         <li>
-          <StyledLink to="/contact">Contact</StyledLink>
+          <StyledLink to="/">Contact</StyledLink>
         </li>
       </LinkWrapper>
 
       {/* Icons */}
       <IconWrapper>
-        {show && (
-          // <form action="">
-          //   <input
-          //     type="search"
-          //     name="search"
-          //     placeholder="Search product..."
-          //   />
-          // </form>
-          <SearchBar />
-        )}
+        {show && <SearchBar />}
         <IoSearch onClick={() => setShow(!show)} />
 
         <li>
@@ -148,12 +133,11 @@ const Navbar = () => {
           </StyledLink>
         </li>
         <li>
-          <StyledLink to="/wishlist">
+          <StyledLink to="/">
             <RiHeartLine />
           </StyledLink>
         </li>
         <li>
-          {" "}
           <MenuToggle onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <IoClose /> : <GiHamburgerMenu />}
           </MenuToggle>
