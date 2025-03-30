@@ -1,32 +1,3 @@
-// import React from "react";
-// import styled from "styled-components";
-// const Wrapper = styled.div`
-//   display: flex;
-//   flex-wrap: nowrap;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 2em;
-
-//   img {
-//     width: 400px;
-//     border-radius: 8px;
-//   }
-// `;
-// const ConfirmationPage = () => {
-//   return (
-//     <Wrapper>
-//       <h1>Your order has been placed Successfully</h1>
-//       <img
-//         src="https://images.pexels.com/photos/7564249/pexels-photo-7564249.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-//         alt=""
-//       />
-//     </Wrapper>
-//   );
-// };
-
-// export default ConfirmationPage;
-
 import React from "react";
 import styled from "styled-components";
 
@@ -63,14 +34,16 @@ const Button = styled.button`
 
 const Confirmation = () => {
   return (
-    <Container>
-      <Title>Thank you for your purchase!</Title>
-      <p>An order confirmation has been sent to your email</p>
+    <div style={{ height: "70vh" }}>
+      <Container>
+        <Title>Thank you for your purchase!</Title>
+        <p>An order confirmation has been sent to your email</p>
 
-      <Button onClick={() => (window.location.href = "/")}>
-        Back to Homepage
-      </Button>
-    </Container>
+        <Button onClick={() => (window.location.href = "/")}>
+          Back to Homepage
+        </Button>
+      </Container>
+    </div>
   );
 };
 

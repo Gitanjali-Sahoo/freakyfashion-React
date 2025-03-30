@@ -24,8 +24,7 @@ const SearchResults = () => {
   const filteredProducts = location.state?.filteredProducts || [];
 
   return (
-    <div>
-      {/* {message && <h3>{message}</h3>} */}
+    <div style={{ height: "70vh" }}>
       {filteredProducts.length === 0 ? null : (
         <CardWrapper>
           {filteredProducts.map((product) => (

@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0px 10px;
+  height: 70vh;
 `;
 const Table = styled.table`
   margin: 40px auto;
