@@ -1,5 +1,6 @@
 import express from "express";
 import Database from "better-sqlite3";
+import cors from "cors";
 
 const db = new Database("./db/product-manager.db", {
   verbose: console.log,
