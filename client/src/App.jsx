@@ -2,8 +2,6 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import styled from "styled-components";
-import Navbar from "./component/Navbar";
-import Footer from "./component/Footer";
 import ProductDetail from "./component/ProductDetail";
 import SearchResults from "./component/SearchResults";
 import ProductProvider from "./contexts/ProductProvider";
@@ -11,7 +9,7 @@ import MainLayout from "./layout/MainLayout";
 import AdminLayout from "./layout/AdminLayout";
 import ProductsList from "./admin/ProductsList";
 import NewProduct from "./admin/NewProduct";
-import Cart from "./cart/Cart.jsx";
+import Cart from "./cart/Cart";
 import Checkout from "./cart/Checkout";
 import ConfirmationPage from "./cart/ConfirmationPage";
 
