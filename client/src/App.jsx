@@ -11,7 +11,7 @@ import MainLayout from "./layout/MainLayout";
 import AdminLayout from "./layout/AdminLayout";
 import ProductsList from "./admin/ProductsList";
 import NewProduct from "./admin/NewProduct";
-import Cart from "./cart/cart";
+import Cart from "./cart/Cart.jsx";
 import Checkout from "./cart/Checkout";
 import ConfirmationPage from "./cart/ConfirmationPage";
 
