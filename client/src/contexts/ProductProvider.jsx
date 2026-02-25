@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_URL } from "../config";
 
 export const ProductContext = React.createContext([]);
 
@@ -8,7 +9,7 @@ const ProductProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/api/products")
+    fetch(`${API_URL}/api/products`)
       .then((resp) => {
         if (!resp.ok) {
           throw new Error("Failed to fetch products");

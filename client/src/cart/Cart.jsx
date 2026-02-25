@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 const Wrapper = styled.div`
   display: flex;
@@ -67,7 +68,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/cart")
+    fetch(`${API_URL}/api/cart`)
       .then((resp) => resp.json())
       .then((data) => {
         setProducts(data);
@@ -78,7 +79,7 @@ const Cart = () => {
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity < 1) return; // Prevent negative quantities
 
-    fetch("/api/cart/update", {
+    fetch(`${API_URL}/api/cart/update`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, quantity: newQuantity }),
@@ -88,18 +89,18 @@ const Cart = () => {
         // Update local state after successful backend update
         setProducts((prevProducts) =>
           prevProducts.map((product) =>
-            product.id === id ? { ...product, quantity: newQuantity } : product
-          )
+            product.id === id ? { ...product, quantity: newQuantity } : product,
+          ),
         );
       })
       .catch((error) => console.error("Error updating quantity:", error));
   };
   const total = products.reduce(
     (acc, product) => acc + product.quantity * product.price,
-    0
+    0,
   );
   const handleDelete = (id) => {
-    fetch(`/api/cart/${id}`, {
+    fetch(`${API_URL}/api/cart/${id}`, {
       method: "DELETE",
     })
       .then((response) => {

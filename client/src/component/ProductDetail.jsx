@@ -5,6 +5,7 @@ import { FaRegHeart } from "react-icons/fa";
 import ImageSlider from "./ImageSlider";
 import { useContext } from "react";
 import { ProductContext } from "../contexts/ProductProvider";
+import { API_URL } from "../config";
 
 const DetailWrapper = styled.div`
   display: flex;
@@ -83,7 +84,7 @@ const ProductDetail = () => {
       date: product.createdAt,
     };
 
-    fetch("/api/cart", {
+    fetch(`${API_URL}/api/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
