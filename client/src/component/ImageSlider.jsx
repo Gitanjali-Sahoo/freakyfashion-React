@@ -10,9 +10,10 @@ const SliderContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 80%;
+  width: 100%;
   margin: auto;
   overflow: hidden;
+
   @media (max-width: 640px) {
     display: none;
   }
@@ -22,12 +23,17 @@ const SlideWrapper = styled.div`
   display: flex;
   transition: transform 0.5s ease-in-out;
   transform: translateX(${(props) => props.$translateX}%);
+  width: 100%;
+  overflow: hidden;
 `;
 
 const Slide = styled.div`
-  flex: 0 0 33.33%;
+  /* flex: 0 0 33.33%; */
+
+  flex: 0 0 ${(props) => `calc(100% / ${props.$itemsPerSlide})`};
   padding: 10px;
   text-align: center;
+  width: 100%;
 `;
 
 const Image = styled.img`
@@ -96,7 +102,11 @@ const ImageSlider = () => {
       <NavButton $left onClick={prevSlide}>
         <FaChevronLeft />
       </NavButton>
-      <SlideWrapper $translateX={-index * (100 / itemsPerSlide)}>
+      <SlideWrapper
+        $translateX={-index * (100 / itemsPerSlide)}
+        $totalSlides={data.length}
+        $itemsPerSlide={itemsPerSlide}
+      >
         {data.map((product) => (
           <Slide key={product.id}>
             <Image src={product.image} alt={product.name} />

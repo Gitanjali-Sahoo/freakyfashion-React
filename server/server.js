@@ -36,7 +36,7 @@ app.get("/api/products", (req, res) => {
       gender,
       slug,
       createdAt FROM products
-    `
+    `,
     )
     .all();
   // Get current date for comparing product age
@@ -224,7 +224,7 @@ app.get("/api/cart", (req, res) => {
       slug,
       createdAt,
       quantity FROM cart
-  `
+  `,
     )
     .all();
 

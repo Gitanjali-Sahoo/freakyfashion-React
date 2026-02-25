@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { FaRegArrowAltCircleDown } from "react-icons/fa";
-import { CiSearch } from "react-icons/ci";
 import SearchBar from "./SearchBar";
 
 const HeroWrapper = styled.div`
@@ -15,11 +14,11 @@ const HeroWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  h2 {
+  h1 {
     line-height: normal;
     margin-bottom: 0;
     text-align: center;
-    font-size: 1.7rem;
+    font-size: 3em;
   }
   h4 {
     letter-spacing: 0.4em;
@@ -40,8 +39,8 @@ const HeroWrapper = styled.div`
   }
 
   @media (max-width: 500px) {
-    h2 {
-      font-size: 1.5rem;
+    h1 {
+      font-size: 1.9rem;
     }
     h4 {
       font-size: 0.9rem;
@@ -52,7 +51,7 @@ const HeroWrapper = styled.div`
 const Hero = () => {
   return (
     <HeroWrapper>
-      <h2>Step Into Style</h2>
+      <h1>Step Into Style</h1>
       <h4>Comfort Meets Fashion in Every Pair</h4>
 
       <SearchBar />
